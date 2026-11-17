@@ -33,10 +33,19 @@ function cartTotal(cart, menu) {
   return cartLines(cart, menu).reduce((sum, line) => sum + line.lineTotal, 0);
 }
 
-// The bill. For now: food total only. (CR2 adds GST to this function.)
+// The bill. (CR2 adds GST to this function.)
 function billSummary(cart, menu) {
   const food = cartTotal(cart, menu);
-  return { food: food, total: food };
+  const gstRate = 0.05;
+  const gst = food * gstRate;
+  const total = food + gst;
+  
+  return { 
+    food: food, 
+    gstRate: gstRate, 
+    gst: gst, 
+    total: total 
+  };
 }
 
 if (typeof module !== "undefined") {
